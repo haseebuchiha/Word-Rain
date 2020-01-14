@@ -5,74 +5,40 @@ using UnityEngine;
 public class GameController : MonoBehaviour
 {
     public string word;
+    private string alphabet;
 
     private int atIndex = 0;
-
-    private List<GameObject> letterObjects = new List<GameObject>();
-
-    private bool Clicked = false;
-
-    private GameObject objectClicked;
-
-    private SpawnGameObjects spawnGameObjects;
-    private OnClick onClickObject = new OnClick()  ;
 
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("inside start");
-        word = word.ToLower();
-
-        FillObjectsList();
+        word = word.ToUpper();        
     }
 
     // Update is called once per frame
     void Update()
     {
-       // Debug.Log("inside update");
-
-        Clicked = onClickObject.ClickStatus();
-        Debug.Log("value of clicked is sexful      =  " + Clicked);
-        
-        
-        if (Clicked)
+        if (Input.GetMouseButtonDown(0))
         {
-            // update the statuses
-            onClickObject.SetClickStatus(false);
-            Debug.Log("update main hon mission sexful");
-            Clicked = false;
+            isCorrect();
+        }
+    }
 
-            //get the object clicked and compare
-            objectClicked = onClickObject.GetObject();
+    void isCorrect(){
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
 
-            if (!isCorrect())
-            {
-                Debug.Log("Incorrect!");
+        if(Physics.Raycast(ray, out hit, Mathf.Infinity)){
+            alphabet = hit.transform.name;
+            // Debug.Log("i hit" + alphabet);
+
+            if(alphabet[0].ToString() == word[atIndex].ToString()){
+                Debug.Log("sahi ponche o: " + alphabet);
+                atIndex++;
+            }
+            else{
+                Debug.Log("nai bhai aese nai: " + alphabet);
             }
         }
-    }
-
-    void FillObjectsList() // get the relevant game objects from spawner.
-    {
-        Debug.Log("Fill object method ");
-
-        GameObject go;
-        foreach(char c in word)
-        {
-          //  go = (GameObject)spawnGameObjects.GetGameObject((int)c - 97);
-
-           //  letterObjects.Add(go);
-        }
-    }
-
-    bool isCorrect()
-    {
-        if (objectClicked == letterObjects[atIndex])
-        {
-            atIndex++;
-            return true;
-        }
-
-        return false;
     }
 }

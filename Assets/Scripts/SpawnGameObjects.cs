@@ -32,7 +32,7 @@ public class SpawnGameObjects : MonoBehaviour {
 	void MakeThingToSpawn()
 	{
         //randomize objeect to be created
-        int index = Random.Range(0, 25);
+        int index = Random.Range(0, (spawnPrefab.Length) -1);
 
 		// create a new gameObject
 		GameObject clone = Instantiate(spawnPrefab[index], transform.position, transform.rotation) as GameObject;
@@ -44,8 +44,8 @@ public class SpawnGameObjects : MonoBehaviour {
 		}
 	}
 
-    public GameObject GetGameObject(int index)
+    public string GetGameObjectName(int index)
     {
-        return spawnPrefab[index];
+        return spawnPrefab[index].name;
     }
 }
