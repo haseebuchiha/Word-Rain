@@ -30,7 +30,9 @@ public class GameController : MonoBehaviour
 
         if(Physics.Raycast(ray, out hit, Mathf.Infinity)){
             alphabet = hit.transform.name;
-            // Debug.Log("i hit" + alphabet);
+            if(!alphabet.Equals("floor")){
+                Destroy(hit.transform.gameObject);
+            }
 
             if(alphabet[0].ToString() == word[atIndex].ToString()){
                 Debug.Log("sahi ponche o: " + alphabet);
