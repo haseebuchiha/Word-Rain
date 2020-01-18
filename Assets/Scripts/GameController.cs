@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -11,12 +12,19 @@ public class GameController : MonoBehaviour
 
     private int atWord = 0;
     private int atIndex = 0;
+    public static int score = 0;
+
+    public Text wordTextDisplay; // to dislpay the current word
 
     // Start is called before the first frame update
     void Start()
     {
+        score = 0;
+
         currentWord = words[atWord]; // set the current word once
         currentWord = currentWord.ToUpper();
+
+        wordTextDisplay.text = currentWord; 
     }
 
     // Update is called once per frame
@@ -40,25 +48,28 @@ public class GameController : MonoBehaviour
             }
 
             if(alphabet[0].ToString() == currentWord[atIndex].ToString()){ // check if alphabet we clicked is same as alphabet we want
-                Debug.Log("sahi ponche o: " + alphabet);
+                // Debug.Log("sahi ponche o: " + alphabet);
                 atIndex++;
+                score+=1; // add 1 score for each right alphabet clicked
+                // Debug.Log("score updated: "+ score.ToString());
 
                 if(atIndex == currentWord.Length){ // calls for next word
                     atIndex = 0;
                     atWord++;
+                    score+=10; // add 10 score for each whole word
                 }
 
                 if(atWord == words.Length){
-                    Debug.Log("Game khatam");
-                    SceneManager.LoadScene("MainMenu");
+                    // Debug.Log("Game khatam");
+                    RoundOver();
                 }
                 else{
                     SetNextWord(); // if words have not been completed. Continue with next word
                 }
             }
             else{
-                Debug.Log("nai bhai aese nai: " + alphabet);
-                SceneManager.LoadScene("MainMenu");
+                // Debug.Log("nai bhai aese nai: " + alphabet);
+                RoundOver();
             }
         }
     }
@@ -66,5 +77,11 @@ public class GameController : MonoBehaviour
     void SetNextWord(){
         currentWord = words[atWord];
         currentWord = currentWord.ToUpper();
+
+        wordTextDisplay.text = currentWord;
+    }
+
+    void RoundOver(){
+        SceneManager.LoadScene("RoundOverScene");
     }
 }
