@@ -16,9 +16,13 @@ public class GameController : MonoBehaviour
 
     public Text wordTextDisplay; // to dislpay the current word
 
+    private Damage damage;
+
     // Start is called before the first frame update
     void Start()
     {
+        damage = FindObjectOfType<Damage>();
+
         score = 0;
 
         currentWord = words[atWord]; // set the current word once
@@ -30,6 +34,10 @@ public class GameController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // if(ifMissed()){
+        //     RoundOver();
+        // }
+
         if (Input.GetMouseButtonDown(0)) // if left mouse button is clicked
         {
            Check();
@@ -48,10 +56,9 @@ public class GameController : MonoBehaviour
             }
 
             if(alphabet[0].ToString() == currentWord[atIndex].ToString()){ // check if alphabet we clicked is same as alphabet we want
-                // Debug.Log("sahi ponche o: " + alphabet);
+                
                 atIndex++;
                 score+=1; // add 1 score for each right alphabet clicked
-                // Debug.Log("score updated: "+ score.ToString());
 
                 if(atIndex == currentWord.Length){ // calls for next word
                     atIndex = 0;
@@ -60,7 +67,6 @@ public class GameController : MonoBehaviour
                 }
 
                 if(atWord == words.Length){
-                    // Debug.Log("Game khatam");
                     RoundOver();
                 }
                 else{
@@ -68,7 +74,6 @@ public class GameController : MonoBehaviour
                 }
             }
             else{
-                // Debug.Log("nai bhai aese nai: " + alphabet);
                 RoundOver();
             }
         }
@@ -84,4 +89,12 @@ public class GameController : MonoBehaviour
     void RoundOver(){
         SceneManager.LoadScene("RoundOverScene");
     }
+
+    // bool ifMissed(){ // check if the required alphabet was missed
+    //     Debug.Log("gameControllerscript alphabet: " + currentWord[atIndex].ToString());
+    //     if(damage.GetCollidedObjectName() == currentWord[atIndex].ToString()){
+    //         return true;
+    //     }
+    //     return false;
+    // }
 }

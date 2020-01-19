@@ -13,6 +13,7 @@ public class Damage : MonoBehaviour {
 	public bool destroySelfOnImpact = false;	// variables dealing with exploding on impact (area of effect)
 	public float delayBeforeDestroy = 0.0f;
 	public GameObject explosionPrefab;
+	// private string collidedObjectName;
 
 	private float savedTime = 0;
 
@@ -38,7 +39,9 @@ public class Damage : MonoBehaviour {
 
 
 	void OnCollisionEnter(Collision collision) 						// this is used for things that explode on impact and are NOT triggers
-	{	
+	{
+		// collidedObjectName = collision.gameObject.name[0].ToString();
+
 		if (damageOnCollision) {
 			if (this.tag == "PlayerBullet" && collision.gameObject.tag == "Player")	// if the player got hit with it's own bullets, ignore it
 				return;
@@ -70,4 +73,8 @@ public class Damage : MonoBehaviour {
 		}
 	}
 	
+	// public string GetCollidedObjectName(){
+	// 	Debug.Log("DamageScript: " + collidedObjectName);
+	// 	return collidedObjectName;
+	// }
 }

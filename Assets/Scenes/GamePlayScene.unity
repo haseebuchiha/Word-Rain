@@ -260,14 +260,14 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 73768659}
-  m_LocalRotation: {x: 0.51151556, y: -0.50076604, z: 0.48460028, w: 0.5027404}
+  m_LocalRotation: {x: 0.50515807, y: -0.50717854, z: 0.49090338, w: 0.49658757}
   m_LocalPosition: {x: 0, y: 0, z: 5.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2006542750}
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 88.51, y: -162.667, z: -74.32201}
+  m_LocalEulerAnglesHint: {x: 88.51, y: -162.666, z: -72.87601}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: -81.6, y: -47.2}
@@ -1055,9 +1055,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   words:
-  - you
-  - me
-  - batman
+  - word
+  - rain
+  - game
   wordTextDisplay: {fileID: 2006542751}
 --- !u!1 &1162818539 stripped
 GameObject:
