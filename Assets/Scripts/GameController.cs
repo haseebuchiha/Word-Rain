@@ -1,15 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
-    public string[] words;
+    private string[] words;
     private string alphabet; // the alphabet caught in the game
     private string currentWord; // the current word displaying in the game
     private List<string> currentWordList;
+    private string fileName = "data.json"; //json file where data is loaded from
 
     private int atWord;
     public static int score = 0;
@@ -20,6 +22,8 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        LoadGameData();
+
         currentWordList = new List<string>();
 
         index = -1;
@@ -86,5 +90,25 @@ public class GameController : MonoBehaviour
 
     void RoundOver(){
         SceneManager.LoadScene("RoundOverScene");
+    }
+
+    private void LoadGameData()
+    {
+        string filePath = Path.Combine(Application.streamingAssetsPath, fileName);
+
+        if (File.Exists(filePath))
+        {
+            // Read the json from the file into a string
+            string jsonData = File.ReadAllText(filePath);
+            // Pass the json to JsonUtility, and tell it to create a GameData object from it
+            GameData loadedData = JsonUtility.FromJson<GameData>(jsonData);
+
+            // Retrieve the allRoundData property of loadedData
+            words = loadedData.words;
+        }
+        else
+        {
+            Debug.LogError("Could'nt load data!");
+        }
     }
 }

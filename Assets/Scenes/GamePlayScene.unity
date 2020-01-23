@@ -980,7 +980,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
+  orthographic: 1
   orthographic size: 50
   m_Depth: 0
   m_CullingMask:
@@ -1054,10 +1054,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9859f1cf6f6dfe41854c5af64b27c3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  words:
-  - word
-  - rain
-  - game
   wordTextDisplay: {fileID: 2006542751}
 --- !u!1 &1162818539 stripped
 GameObject:
