@@ -9,35 +9,29 @@ public class GameController : MonoBehaviour
     public string[] words;
     private string alphabet; // the alphabet caught in the game
     private string currentWord; // the current word displaying in the game
+    private List<string> currentWordList;
 
-    private int atWord = 0;
-    private int atIndex = 0;
+    private int atWord;
     public static int score = 0;
+    private int index;
 
     public Text wordTextDisplay; // to dislpay the current word
-
-    private Damage damage;
 
     // Start is called before the first frame update
     void Start()
     {
-        damage = FindObjectOfType<Damage>();
+        currentWordList = new List<string>();
 
+        index = -1;
+        atWord = 0;
         score = 0;
 
-        currentWord = words[atWord]; // set the current word once
-        currentWord = currentWord.ToUpper();
-
-        wordTextDisplay.text = currentWord; 
+        SetNextWord();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // if(ifMissed()){
-        //     RoundOver();
-        // }
-
         if (Input.GetMouseButtonDown(0)) // if left mouse button is clicked
         {
            Check();
@@ -55,22 +49,23 @@ public class GameController : MonoBehaviour
                 Destroy(hit.transform.gameObject);
             }
 
-            if(alphabet[0].ToString() == currentWord[atIndex].ToString()){ // check if alphabet we clicked is same as alphabet we want
+            alphabet = alphabet.ToLower();
+            index = currentWordList.IndexOf(alphabet[0].ToString());
+
+            if(index != -1){ // check if alphabet we clicked exists in current word
+                currentWordList.RemoveAt(index); //its been clicked, dont need it no more
                 
-                atIndex++;
                 score+=1; // add 1 score for each right alphabet clicked
 
-                if(atIndex == currentWord.Length){ // calls for next word
-                    atIndex = 0;
+                if(currentWordList.Count == 0){ // calls for next word
                     atWord++;
                     score+=10; // add 10 score for each whole word
-                }
-
-                if(atWord == words.Length){
+                
+                    if(atWord == words.Length){
                     RoundOver();
-                }
-                else{
-                    SetNextWord(); // if words have not been completed. Continue with next word
+                    }
+
+                    SetNextWord(); // if words array have not been completed. Continue with next word
                 }
             }
             else{
@@ -80,21 +75,16 @@ public class GameController : MonoBehaviour
     }
 
     void SetNextWord(){
-        currentWord = words[atWord];
-        currentWord = currentWord.ToUpper();
+        wordTextDisplay.text = words[atWord];
 
-        wordTextDisplay.text = currentWord;
+        currentWordList.Clear(); //empty the list first
+
+        for(int i =0; i < words[atWord].Length; i++){ //populate list with alphabets in the word
+            currentWordList.Add(words[atWord][i].ToString());
+        }        
     }
 
     void RoundOver(){
         SceneManager.LoadScene("RoundOverScene");
     }
-
-    // bool ifMissed(){ // check if the required alphabet was missed
-    //     Debug.Log("gameControllerscript alphabet: " + currentWord[atIndex].ToString());
-    //     if(damage.GetCollidedObjectName() == currentWord[atIndex].ToString()){
-    //         return true;
-    //     }
-    //     return false;
-    // }
 }
