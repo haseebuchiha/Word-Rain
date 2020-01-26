@@ -7,7 +7,11 @@ using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+
     private List<string> words;
+
+    private string[] words;
+
     private string alphabet; // the alphabet caught in the game
     private string currentWord; // the current word displaying in the game
     private List<string> currentWordList;
@@ -16,7 +20,7 @@ public class GameController : MonoBehaviour
     private int atWord;
     public static int score = 0;
     private int index;
-    
+
     public Text wordTextDisplay; // to dislpay the current word
 
     public GameObject explosionPrefab;
@@ -25,7 +29,9 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         words = new List<string>();
+
 
         LoadGameData();
 
@@ -36,8 +42,7 @@ public class GameController : MonoBehaviour
         score = 0;
 
         SetNextWord();
-       
-        
+
     }
 
     // Update is called once per frame
@@ -77,7 +82,11 @@ public class GameController : MonoBehaviour
                     atWord++;
                     score+=10; // add 10 score for each whole word
                 
+
                     if(atWord == words.Count){
+
+                    if(atWord == words.Length){
+
                     RoundOver();
                     }
 
@@ -91,6 +100,7 @@ public class GameController : MonoBehaviour
     }
 
     void SetNextWord(){
+
         atWord = Random.Range(0, words.Count);
 
         wordTextDisplay.text = words[atWord];
@@ -99,15 +109,21 @@ public class GameController : MonoBehaviour
 
         for(int i =0; i < words[atWord].Length; i++){ //populate list with alphabets in the word
             currentWordList.Add(words[atWord][i].ToString());
+
         }
 
         words.RemoveAt(atWord);
+
+        }        
+
     }
 
     void RoundOver(){
         SceneManager.LoadScene("RoundOverScene");
+
         audioSource = GetComponent<AudioSource>();
         audioSource.Play(0);
+
     }
 
     private void LoadGameData()

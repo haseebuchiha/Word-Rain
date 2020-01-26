@@ -6,4 +6,7 @@ using UnityEngine;
 public class GameData
 {
     public List<string> words;
+
+    public string[] words;
+
 }
