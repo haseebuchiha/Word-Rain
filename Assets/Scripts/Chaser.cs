@@ -5,13 +5,15 @@ using System.Collections;
 
 public class Chaser : MonoBehaviour {
 	
-	public float speed = 20.0f;
+	private float speed = 30.0f;
 	public float minDist = 1f;
 	public Transform target;
 
 	// Use this for initialization
 	void Start () 
 	{
+		 speed = Random.Range(10.0f, 50.0f); // get random speed values everytime
+
 		// if no target specified, assume the player
 		if (target == null) {
 
@@ -35,7 +37,7 @@ public class Chaser : MonoBehaviour {
 		float distance = Vector3.Distance(transform.position,target.position);
 
 		//so long as the chaser is farther away than the minimum distance, move towards it at rate speed.
-		if(distance > minDist)	
+		if(distance > minDist)
 			transform.position += transform.forward * speed * Time.deltaTime;	
 	}
 
